@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SMART CONTRACT TEST</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+    <style>
+        /* Navbar styles */
+        nav {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            margin-left: 20px;
+        }
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding-right: 20px;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #ddd;
+        }
+
+        /* Other styles */
+        body {
+            background-color: white;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+        }
+        button {
+            background-color: black;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: 'Inter', sans-serif;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #333;
+        }
+        input {
+            width: 40%;
+            height: 33px;
+            font-size: 30px;
+        }
+        .button-container {
+            padding-top: 20px;
+        }
+        .radio-container {
+            text-align: left;
+        }
+        .radio-container label {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo"> <!-- "Kryptocracy" and logo -->
+            <span style="font-size: 20px; font-weight: bold;">Kryptocracy</span> <!-- Big size "Kryptocracy" -->
+            <img src="assets/vote.png" alt="Kryptocracy Logo" style="width: 30px; height: 30px; margin-left: 10px;"> <!-- Logo -->
+        </div>
+        <ul>        
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Vote</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </nav>
+
+    <button onclick="connectMetamask()">CONNECT TO METAMASK</button> <br>
+    <p id="accountArea">Connection Status: NOT CONNECTED to Metamask </p>
+
+    <button onclick="connectContract()">CONNECT TO CONTRACT</button> <br>
+    <p id="contractArea">Connection Status: NOT CONNECTED to Smart Contract</p>
+
+    <button onclick="displayData()">DISPLAY DATA FROM SMART CONTRACT</button> <br>
+    <p id="dataArea">Data Status: NO Data from Smart Contract </p>
+
+    <h1>Vote in the Poll</h1>
+    <div class="button-container">
+        <form id="pollForm">
+            <div class="radio-container">
+                <label for="voteyes" ></label>
+                    <input type="radio" name="voteyes" value="yes"> Yes
+                </label>
+                <label>
+                    <input type="radio" name="vote" value="no"> No
+                </label>
+            </div>
+            <button type="button" onclick="submitVote()">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript code goes here
+        let account;
+        const connectMetamask = async () => {
+            if (window.ethereum !== "undefined") {
+                const accounts = await ethereum.request({method: "eth_requestAccounts"});
+                account = accounts[0];
+                document.getElementById("accountArea").innerHTML = `Account is: ${account}`;
+            }
+        }
+
+        const connectContract = async () => {
+            const ABI = [
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_option",
+				"type": "string"
+			}
+		],
+		"name": "setJsonData",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getJsonData",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+			"type": "function"
+	}
+];
+            const Address = "0xd9145CCE52D386f254917e481eB44e9943F39138";
+            window.web3 = await new Web3(window.ethereum);
+            window.contract = await new window.web3.eth.Contract(ABI, Address);
+            document.getElementById("contractArea").innerHTML = "Connection Status: Success";
+        }
+
+        const displayData = async () => {
+            const data = await window.contract.methods.getJsonData().call();
+            const [option, yesVotes, noVotes] = data;
+            document.getElementById("dataArea").innerHTML = `Option: ${option}, Yes Votes: ${yesVotes}, No Votes: ${noVotes}`;
+        }
+
+        let selectedOption = null;
+
+        async function submitVote() {
+            const selectedRadioButton = document.querySelector('input[name="vote"]:checked');
+            if (!selectedRadioButton) {
+                alert("Please select an option before submitting.");
+                return;
+            }
+            const selectedOption = selectedRadioButton.value;
+            alert("You voted: " + selectedOption);
+            
+            try {
+                await window.contract.methods.setJsonData(selectedOption).send({ from: account });
+                alert("Vote submitted successfully!");
+            } catch (error) {
+                console.error("Error submitting vote:", error);
+                alert("Failed to submit vote. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>

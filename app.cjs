@@ -4,13 +4,15 @@ const multer = require('multer');
 const path = require('path');
 const app = express();
 const port = 5000;
+const fs = require('fs');
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.render('signup'); // Render the signup.ejs file
 });
+const jsonFilePath = './decisions.json';
 const upload = multer({ dest: 'uploads/' });
-
+app.set('view engine', 'ejs');
 // Route handler for submitting registration form
 app.post('/submitRegistration', upload.single('adhaarPdf'), async (req, res) => {
     const { name, adhaar, wallet, location, userType, username, password } = req.body;
@@ -40,7 +42,16 @@ app.post('/submitRegistration', upload.single('adhaarPdf'), async (req, res) => 
 
         // Render different templates based on user type
         if (userType === 'voter') {
-            res.render("voter.ejs");
+          fs.readFile(jsonFilePath, 'utf8', (err, data) => {
+            if (err) {
+                console.error('Error reading JSON file:', err);
+                res.status(500).send('Internal server error');
+                return;
+            }
+            const decisions = JSON.parse(data).decisions;
+            // Render the EJS template with the decisions data
+            res.render('voter.ejs', { decisions });
+        });
         } else if (userType === 'organization') {
             res.render("index.ejs");
         } else {
@@ -81,5 +92,8 @@ app.post("/pollcreated", (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
-
+app.post('/submitVote', (req, res) => {
+  // Process form submission here if needed
+  res.render('votingpoll.ejs');
+});
 

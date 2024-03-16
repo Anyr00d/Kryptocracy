@@ -38,6 +38,49 @@
             color: #ddd; /* Change color on hover */
         }
 
+        /* Decision box styles */
+        .decision-box {
+            background-color: #f0f0f0;
+            border: 2px solid black; /* Black border */
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            font-family: 'Inter', sans-serif; /* Inter font */
+        }
+        .decision-box h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center; /* Center-align heading */
+        }
+        .decision-box p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .decision-box ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 10px;
+        }
+        .decision-box ul li {
+            margin-bottom: 5px;
+        }
+        .decision-box .vote-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            display: block; /* Full-width button */
+            margin: 0 auto; /* Center-align button */
+        }
+        .decision-box .vote-button:hover {
+            background-color: #0056b3;
+        }
+
         /* Big text styles */
         .big-text {
             text-align: center;
@@ -50,9 +93,9 @@
 </head>
 <body>
     <nav>
-        <div class="logo"> <!-- "Kryptocracy" and logo -->
-            <span style="font-size: 20px; font-weight: bold;">Kryptocracy</span> <!-- Big size "Kryptocracy" -->
-            <img src="assets/vote.png" alt="Kryptocracy Logo" style="width: 30px; height: 30px; margin-left: 10px;"> <!-- Logo -->
+        <div class="logo">
+            <span style="font-size: 20px; font-weight: bold;">Kryptocracy</span>
+            <img src="assets/vote.png" alt="Kryptocracy Logo" style="width: 30px; height: 30px; margin-left: 10px;">
         </div>
         <ul>        
             <li><a href="#">Home</a></li>
@@ -60,6 +103,24 @@
             <li><a href="#">About</a></li>
         </ul>
     </nav>
-    <div class="big-text">Hello Voters</div>
+    
+    <div class="big-text">Hello Voters !</div>
+    
+    <% decisions.forEach(decision => { %>
+    <div class="decision-box">
+        <h2><%= decision.name %></h2>
+        <p><%= decision.description %></p>
+        <p>Investment: $<%= decision.investment %></p>
+        <h4>Options: </h4>
+        <ul>
+            <% decision.options.forEach(option => { %>
+            <li><%= option %></li>
+            <% }) %>
+        </ul>
+        <form action="/submitVote" method="post">
+        <button type="submit" class="vote-button">Vote</button>
+    </form>
+    </div>
+    <% }) %>
 </body>
 </html>

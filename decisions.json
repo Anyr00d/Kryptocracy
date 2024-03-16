@@ -1,0 +1,23 @@
+{
+    "decisions": [
+      {
+        "name": "Election Day Voting",
+        "description": "Should the voting day be declared a national holiday to encourage higher voter turnout?",
+        "options": ["Yes", "No"],
+        "investment": 15000
+      },
+      {
+        "name": "Tax Reform",
+        "description": "Should the government implement a flat tax rate for all income levels?",
+        "options": ["Yes", "No"],
+        "investment": 20000
+      },
+      {
+        "name": "Environmental Policy",
+        "description": "Should stricter regulations be imposed on industries to reduce carbon emissions?",
+        "options": ["Yes", "No"],
+        "investment": 10000
+      }
+    ]
+  }
+  
