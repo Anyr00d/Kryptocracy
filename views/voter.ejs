@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Voters</title>
+    <style>
+        /* Navbar styles */
+        nav {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            margin-left: 20px; /* Adjust margin for spacing */
+        }
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding-right: 20px;
+            transition: color 0.3s; /* Transition for text color */
+        }
+        nav ul li a:hover {
+            color: #ddd; /* Change color on hover */
+        }
+
+        /* Big text styles */
+        .big-text {
+            text-align: center;
+            font-size: 36px;
+            margin-top: 50px;
+            font-weight: bold;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo"> <!-- "Kryptocracy" and logo -->
+            <span style="font-size: 20px; font-weight: bold;">Kryptocracy</span> <!-- Big size "Kryptocracy" -->
+            <img src="assets/vote.png" alt="Kryptocracy Logo" style="width: 30px; height: 30px; margin-left: 10px;"> <!-- Logo -->
+        </div>
+        <ul>        
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Vote</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </nav>
+    <div class="big-text">Hello Voters</div>
+</body>
+</html>
