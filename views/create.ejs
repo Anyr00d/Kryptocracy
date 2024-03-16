@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votings</title>
+    <style>
+        /* Navbar styles */
+        nav {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            margin-left: 20px; /* Adjust margin for spacing */
+        }
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding-right: 20px;
+            transition: color 0.3s; /* Transition for text color */
+        }
+        nav ul li a:hover {
+            color: #ddd; /* Change color on hover */
+        }
+
+        /* Form styles */
+        form {
+            display: flex;
+            flex-direction: column; /* Arrange form items vertically */
+            max-width: 300px; /* Adjust maximum width */
+            margin: 0 auto; /* Center horizontally */
+            font-family: 'Inter', sans-serif;
+        }
+        input[type="text"] {
+            margin-bottom: 10px; /* Adjust margin between form elements */
+            padding: 8px; /* Adjust padding */
+            border-radius: 5px; /* Add border radius */
+            border: 1px solid #ccc; /* Add border */
+        }
+        input[type="submit"] {
+            background-color: black;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Transition for background color */
+        }
+        input[type="submit"]:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo"> <!-- "Votings" and logo -->
+            Votings <!-- Big size "Votings" -->
+        </div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Vote</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </nav>
+    <h1>Poll Creation Step-2</h1>
+    <h1>Poll Name: <%= pollName %></h1>
+    <form action="/pollcreated" method="POST">
+        <% for(let i=0; i<options; i++) { %>
+            <input type="text" name="options_val" placeholder="Option <%= i+1 %>">
+        <% } %>
+        <input type="hidden" name="options" value="<%= options %>">
+        <input type="hidden" name="pollName" value="<%= pollName %>">
+        <input type="submit" value="Create Poll">
+    </form>
+</body>
+</html>
