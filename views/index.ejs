@@ -11,7 +11,15 @@
     <form action="/voting" method="POST">
         <input type="radio" name="vote" value="yes"> Option 1<br>
         <input type="radio" name="vote" value="no"> Option 2<br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" onclick="submitForm()">
     </form>
+    <script>
+        function submitForm() {
+            var selectedOption = document.querySelector('input[name="vote"]:checked');
+            if (!selectedOption) {
+                alert("Please select an option!");
+                return;
+            }}
+    </script>
 </body>
 </html>

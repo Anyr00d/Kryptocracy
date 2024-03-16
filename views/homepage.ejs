@@ -13,7 +13,7 @@
     margin: 0;
     background-color: #f0f0f0; /* Background color */
   }
-  button {
+  #connectMeta {
     padding: 10px 20px;
     font-size: 18px;
     background-color: #007bff; /* Blue color */
@@ -23,7 +23,7 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
-  button:hover {
+  #connectMeta:hover {
     background-color: #0056b3; /* Darker blue on hover */
   }
 </style>
@@ -32,7 +32,8 @@
 
 <form action="/account" method="post">
   <input type="text" name="name" id="name" placeholder="enter name">
-  <button onclick="connectMetaMask()">Metamask Connect</button>
+  <input type="button" id="connectMeta" onclick="connectMetaMask()" value="Meta Mask Connect">
+  <input type="hidden" id="wallet" name="wallet" value="">
   <input type="submit">
 </form>
 <br>
@@ -45,6 +46,7 @@
             const accounts = await ethereum.request({method: "eth_requestAccounts"});
             account=accounts[0];
             document.getElementById("accountspace").innerHTML = account;
+            document.getElementById("wallet").value = account;
         }
     }
 </script>
