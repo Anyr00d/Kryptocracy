@@ -46,5 +46,12 @@ To start the server:
 ```sh
 npm run dev
 ```
+### Initiate Local Chain
+
+To initiate a local Ethereum chain using Hardhat:
+
+```sh
+npx hardhat node
+```
 
 
