@@ -26,7 +26,7 @@ module.exports = {
   },
   networks: {
     localhost: {
-      url: "http://localhost:7545",
+      url: "http://127.0.0.1:8545", // or whatever URL your node is running on // This should match the chain ID of your local network
     },
   },
 };
