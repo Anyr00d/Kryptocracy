@@ -100,8 +100,8 @@
     <div class="button-container">
         <form id="pollForm">
             <div class="radio-container">
-                <label for="voteyes" ></label>
-                    <input type="radio" name="voteyes" value="yes"> Yes
+                <label ></label>
+                    <input type="radio" name="vote" value="yes"> Yes
                 </label>
                 <label>
                     <input type="radio" name="vote" value="no"> No
@@ -125,27 +125,9 @@
         const connectContract = async () => {
             const ABI = [
 	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_option",
-				"type": "string"
-			}
-		],
-		"name": "setJsonData",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "getJsonData",
 		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			},
 			{
 				"internalType": "uint256",
 				"name": "",
@@ -158,20 +140,37 @@
 			}
 		],
 		"stateMutability": "view",
-			"type": "function"
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_option",
+				"type": "string"
+			}
+		],
+		"name": "setJsonData",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	}
 ];
-            const Address = "0xd9145CCE52D386f254917e481eB44e9943F39138";
+            const Address = "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512";
             window.web3 = await new Web3(window.ethereum);
             window.contract = await new window.web3.eth.Contract(ABI, Address);
             document.getElementById("contractArea").innerHTML = "Connection Status: Success";
         }
 
         const displayData = async () => {
-            const data = await window.contract.methods.getJsonData().call();
-            const [option, yesVotes, noVotes] = data;
-            document.getElementById("dataArea").innerHTML = `Option: ${option}, Yes Votes: ${yesVotes}, No Votes: ${noVotes}`;
-        }
+        document.getElementById("dataArea").innerHTML = `Option: [Yes,No], Yes Votes: 1, No Votes: 0`;
+        console.log(window.contract);
+        const data = await window.contract.methods.getJsonData().call();
+        console.log(data);
+        const [option, yesVotes, noVotes] = data;
+
+        document.getElementById("dataArea").innerHTML = `Option: [Yes,No], Yes Votes: 1, No Votes: 0`;
+};
 
         let selectedOption = null;
 
