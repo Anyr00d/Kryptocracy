@@ -44,7 +44,7 @@ npx hardhat scripts/deploy.cjs --network localhost
 To start the server:
 
 ```sh
-npm run dev
+node app.cjs
 ```
 ### Initiate Local Chain
 
