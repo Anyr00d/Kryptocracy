@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Sepolia ETH</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <style>
+        /* Global styles */
+        body {
+            margin: 0px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Navbar styles */
+        nav {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            margin-left: 20px; /* Adjust margin for spacing */
+            position: relative; /* Needed for pseudo-element */
+        }
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative; /* Needed for pseudo-element */
+            padding-right: 20px;
+            transition: color 0.3s; /* Transition for text color */
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; /* Position it just below the text */
+            left: 50%; /* Start from the center */
+            width: 0; /* Initially invisible */
+            height: 2px; /* Line height */
+            background-color: white;
+            transition: width 0.3s, left 0.3s; /* Transition for line expansion and centering */
+            transform: translateX(-50%); /* Center horizontally */
+        }
+        nav ul li a:hover::after {
+            width: calc(100% - 40px); /* Expand to cover the entire text */
+            left: 0; /* Start from the left edge */
+        }
+        h1{
+            text-align: center;
+
+            padding-bottom: 10px;
+        }
+        /* Logo styles */
+        .logo {
+            font-size: 20px; /* Adjust font size */
+            font-weight: bold; /* Font weight */
+            margin-right: auto; /* Pushes the logo to the left */
+            display: flex;
+            align-items: center;
+        }
+
+        /* Login button styles */
+        .login-button {
+            background-color: black;
+            color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.2s; /* Transition for background color and transform */
+                font-weight: bold;
+            }
+            .login-button:hover {
+                background-color: #333;
+                transform: scale(1.05); /* Scale up on hover */
+            }
+
+            /* Form styles */
+            form {
+                display: flex;
+                flex-direction: column; /* Arrange form items vertically */
+                max-width: 300px; /* Adjust maximum width */
+                margin: 0 auto; /* Center horizontally */
+            }
+            input[type="text"],
+            input[type="number"],
+            input[type="submit"] {
+                margin-bottom: 10px; /* Adjust margin between form elements */
+                padding: 8px; /* Adjust padding */
+                border-radius: 5px; /* Add border radius */
+                border: 1px solid #ccc; /* Add border */
+            }
+            input[type="submit"] {
+                background-color: black;
+                color: white;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 0.3s; /* Transition for background color */
+            }
+            input[type="submit"]:hover {
+                background-color: #333;
+            }
+            button {
+                background-color: black;
+                color: white;
+                font-size: 20px;
+                font-weight: bold;
+                font-family: 'Inter', sans-serif;
+                border: none;
+                border-radius: 10px;
+                padding: 10px 20px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+            button:hover {
+                background-color: #333;
+
+            }
+            .info-box {
+        border: 2px solid black;
+        padding: 20px;
+        margin: 20px auto;
+        width: 500px; /* Adjust as needed */
+    }
+
+    .info-box h2 {
+        font-family: 'Inter', sans-serif;
+        font-weight: bold;
+    }
+
+    .info-box .xirr {
+        font-family: 'Inter', sans-serif;
+        font-weight: bold;
+        color: green;
+        margin-bottom: 10px;
+    }
+
+    .info-box ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .info-box ul li {
+        font-family: 'Inter', sans-serif;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .contain-1{
+        height: 400px;
+        width: 100% ;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .main{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo"> 
+            Kryptocracy 
+            <!-- <img src="assets/vote.png" alt="Vote Logo" style="width: 30px; height: 30px; margin-left: 10px;">  -->
+        </div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Vote</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+        <button class="login-button">Logout</button>
+    </nav>
+    <centre>
+        <h1><a href="./finance.html" style="text-decoration: none; color: black;">Collateral Backed Bonds </a>| <a style="color: blue;">Sovereign Gold Bonds</a></h1>
+        <div class="main">
+            <img src="./assets/WhatsApp Image 2024-03-17 at 10.19.29_62a87e76.jpg" alt="" id="image"/>
+            <div class="info-box">
+                <h2>An asset that’s gold in every way. <a style="color:green">But better.</a></h2>
+                <ul>
+                    <li>start investing with just 1 gram</li>
+                    <br>
+                    <li>Earn 2.5% interest on top of gold price increase</li>
+                    <li>Pay 0 tax on maturity</li>
+                </ul>
+                <button onclick="transferSepoliaETH()">Invest Now</button>
+            </div>
+        </div>
+
+        
+    </centre>
+    <div class="contain-1">
+        
+    </div>
+   <a href="./"><h3></h3></a>
+    
+    <script>
+        async function transferSepoliaETH() {
+            // Check if MetaMask is installed
+            if (window.ethereum) {
+                // Enable Ethereum provider (MetaMask)
+                await window.ethereum.enable();
+
+                // Get the current Ethereum provider
+                const provider = new Web3(window.ethereum);
+
+                // Contract ABI (Application Binary Interface)
+                const abi = [
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "x",
+				"type": "uint256"
+			}
+		],
+		"name": "set",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "get",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
+
+                // Contract bytecode (compiled code)
+                const bytecode = '608060405234801561000f575f80fd5b506101438061001d5f395ff3fe608060405234801561000f575f80fd5b5060043610610034575f3560e01c806360fe47b1146100385780636d4ce63c14610054575b5f80fd5b610052600480360381019061004d91906100ba565b610072565b005b61005c61007b565b60405161006991906100f4565b60405180910390f35b805f8190555050565b5f8054905090565b5f80fd5b5f819050919050565b61009981610087565b81146100a3575f80fd5b50565b5f813590506100b481610090565b92915050565b5f602082840312156100cf576100ce610083565b5b5f6100dc848285016100a6565b91505092915050565b6100ee81610087565b82525050565b5f6020820190506101075f8301846100e5565b9291505056fea26469706673582212209e0442ab2a9b1a45507d1ca64aaaff23b614c13c35c18c97adcc870ee3c2f78664736f6c63430008180033';
+
+                // Create a new contract instance
+                const contract = new provider.eth.Contract(abi);
+
+                // Deploy the contract
+                const deployedContract = await contract.deploy({
+                    data: bytecode,
+                    arguments: []
+                }).send({
+                    from: await provider.eth.getCoinbase(),
+                    gas: 2000000
+                });
+
+                // Output contract address
+                alert(`Contract deployed successfully at address: ${deployedContract.options.address}`);
+            } else {
+                alert('MetaMask is not installed. Please install it to proceed.');
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+    
+
+  
